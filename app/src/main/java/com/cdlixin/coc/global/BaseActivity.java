@@ -1,5 +1,6 @@
 package com.cdlixin.coc.global;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -8,10 +9,12 @@ import com.cdlixin.coc.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
+
 /**
  * 1、记录activity状态
- * 2、模板化activity中基础方法
- * 3、
+ * 2、模板化activity中基础方法：界面初始化，数据初始化，监听初始化
+ * 3、简化基本方法书写：跳转
  * 4、
  * 5、
  */
@@ -26,11 +29,13 @@ public abstract class BaseActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MyApplication.mActivities.add(this);//存放所有activity的引用
-        setContentView(getLayoutId());
-        initView();
-        initFindViewById();
-        initData();
-        initEvent();
+        setContentView(getLayoutId());//设置布局id
+        ButterKnife.bind(this);//控件绑定
+        initView();//初始化界面
+        initFindViewById();//
+        initData();//初始化数据
+        initEvent();//初始化事件
+        setListener();//设置监听事件
     }
 
 
@@ -46,11 +51,60 @@ public abstract class BaseActivity extends FragmentActivity {
         super.onPause();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
+    }
+
     abstract protected int getLayoutId();
 
     abstract protected void initView();
 
     abstract protected void initData();
+
+    abstract protected void setListener();
+
+    /**
+     * [页面跳转]
+     *
+     * @param clz
+     */
+    public void startActivity(Class<?> clz) {
+        startActivity(new Intent(BaseActivity.this,clz));
+    }
+
+    /**
+     * [携带数据的页面跳转]
+     *
+     * @param clz
+     * @param bundle
+     */
+    public void startActivity(Class<?> clz, Bundle bundle) {
+        Intent intent = new Intent();
+        intent.setClass(this, clz);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
+        startActivity(intent);
+    }
+
+    /**
+     * [含有Bundle通过Class打开编辑界面]
+     *
+     * @param cls
+     * @param bundle
+     * @param requestCode
+     */
+    public void startActivityForResult(Class<?> cls, Bundle bundle,
+                                       int requestCode) {
+        Intent intent = new Intent();
+        intent.setClass(this, cls);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
+        startActivityForResult(intent, requestCode);
+    }
 
     //注册事件
     protected void register() {
@@ -126,5 +180,20 @@ public abstract class BaseActivity extends FragmentActivity {
     public void exitApp() {
         finishAll();
         android.os.Process.killProcess(android.os.Process.myPid());
+    }
+
+    /**
+     * [防止快速点击]
+     *
+     * @return
+     */
+    private boolean fastClick() {
+        long lastClick = 0;
+        if (System.currentTimeMillis() - lastClick <= 1000) {
+            return false;
+        }
+        lastClick = System.currentTimeMillis();
+        return true;
+
     }
 }
