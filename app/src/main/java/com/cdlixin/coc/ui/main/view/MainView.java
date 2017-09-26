@@ -5,6 +5,9 @@ package com.cdlixin.coc.ui.main.view;
  * mainActivity 的界面方法
  */
 
-public interface ImainView {
-
+public interface MainView {
+    void switchOne();
+    void switchTwo();
+    void switchThree();
+    void switchFour();
 }

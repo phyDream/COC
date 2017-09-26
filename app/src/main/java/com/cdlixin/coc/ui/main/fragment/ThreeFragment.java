@@ -1,6 +1,7 @@
 package com.cdlixin.coc.ui.main.fragment;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,23 +9,42 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cdlixin.coc.R;
+import com.cdlixin.coc.global.BaseFrament;
+import com.cdlixin.coc.global.BasePresenter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ThreeFragment extends Fragment {
-
-
-    public ThreeFragment() {
-        // Required empty public constructor
-    }
-
+public class ThreeFragment extends BaseFrament {
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_three, container, false);
+    public int bindLayout() {
+        return R.layout.fragment_three;
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    public void initView(View view) {
+
+    }
+
+    @Override
+    public void doBusiness(Context mContext) {
+
+    }
+
+    @Override
+    public void widgetClick(View v) {
+
+    }
+
+    @Override
+    protected BasePresenter getPresenter() {
+        return null;
     }
 
 }
