@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">COC</string>
+    <string name="app_name">商会之家</string>
+    <string name="mainTab1">Tab1</string>
+    <string name="mainTab2">Tab2</string>
+    <string name="mainTab3">Tab3</string>
+    <string name="mainTab4">Tab4</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_base">BaseActivity</string>
 </resources>

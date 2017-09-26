@@ -15,15 +15,17 @@ import butterknife.ButterKnife;
  * 1、记录activity状态
  * 2、模板化activity中基础方法：界面初始化，数据初始化，监听初始化
  * 3、简化基本方法书写：跳转
- * 4、
+ * 4、网络状态监听
  * 5、
  */
-public abstract class BaseActivity extends FragmentActivity {
+public abstract class BaseActivity <V, T extends BasePresenter<V>> extends FragmentActivity {
 
     /**
      * 记录处于前台的Activity
      */
     private static BaseActivity mForegroundActivity = null;
+
+    public T presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,7 @@ public abstract class BaseActivity extends FragmentActivity {
         MyApplication.mActivities.add(this);//存放所有activity的引用
         setContentView(getLayoutId());//设置布局id
         ButterKnife.bind(this);//控件绑定
+        presenter = getPresenter();
         initView();//初始化界面
         initFindViewById();//
         initData();//初始化数据
@@ -62,6 +65,8 @@ public abstract class BaseActivity extends FragmentActivity {
     abstract protected void initView();
 
     abstract protected void initData();
+
+    public abstract T getPresenter();
 
     abstract protected void setListener();
 
