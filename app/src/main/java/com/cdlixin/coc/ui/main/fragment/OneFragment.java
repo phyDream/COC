@@ -12,8 +12,10 @@ import android.view.ViewGroup;
 
 import com.cdlixin.coc.R;
 import com.cdlixin.coc.entity.ChannelItem;
+import com.cdlixin.coc.global.BaseActivity;
 import com.cdlixin.coc.global.BaseFrament;
 import com.cdlixin.coc.global.BasePresenter;
+import com.cdlixin.coc.presenter.main.impl.NewsPresenter;
 import com.cdlixin.coc.ui.main.adapter.NewsPageAdapter;
 import com.cdlixin.coc.ui.main.widget.TopBar;
 
@@ -34,8 +36,8 @@ public class OneFragment extends BaseFrament {
     ViewPager viewPager;
 
 
+    private NewsPresenter presenter;
     private NewsPageAdapter adapter;
-    private List<ChannelItem> channelItems;
     private TabLayout tabLayout;
 
     @Override
@@ -45,8 +47,10 @@ public class OneFragment extends BaseFrament {
 
     @Override
     public void initView(View view) {
-
-        adapter = new NewsPageAdapter(getChildFragmentManager(),channelItems);
+        presenter = (NewsPresenter) mPresenter;
+        adapter = new NewsPageAdapter(getChildFragmentManager(),presenter.getChannels());
+        viewPager = (ViewPager) view.findViewById(R.id.viewPager);
+        TopBar = (TopBar) view.findViewById(R.id.TopBar);
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(0);
         adapter.notifyDataSetChanged();
@@ -72,7 +76,7 @@ public class OneFragment extends BaseFrament {
 
     @Override
     protected BasePresenter getPresenter() {
-        return null;
+        return new NewsPresenter((BaseActivity) getActivity());
     }
 
 }
