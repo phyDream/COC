@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center_vertical"
+              android:background="@color/colorTitle"
+              android:paddingRight="12dp">
+
+    <android.support.design.widget.TabLayout
+        android:layout_alignParentLeft="true"
+        android:id="@+id/tabLayout"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        app:tabTextColor="@color/colorTitle"
+        app:tabSelectedTextColor="@color/white"
+        app:tabTextAppearance="@style/TabLayoutTextStyle"
+        app:tabIndicatorColor="@color/white"
+        app:tabIndicatorHeight="2dp"
+        app:tabMode="scrollable"></android.support.design.widget.TabLayout>
+
+    <Button
+        android:id="@+id/btn_search"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:visibility="gone"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="14dp"
+        android:background="@drawable/search" />
+
+    <Button
+        android:id="@+id/btn_add_channel"
+        android:background="@drawable/add_channel"
+        android:layout_marginLeft="8dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"/>
+
+</LinearLayout>

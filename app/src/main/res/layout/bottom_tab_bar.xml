@@ -21,26 +21,33 @@
                 android:id="@+id/rb_tab1"
                 style="@style/mainTab"
                 android:checked="true"
-                android:drawableTop="@drawable/tab_chat"
+                android:drawableTop="@drawable/tab_news"
                 android:text="@string/mainTab1"
                 android:textColor="@color/tab_textview"/>
 
             <RadioButton
                 android:id="@+id/rb_tab2"
                 style="@style/mainTab"
-                android:drawableTop="@drawable/tab_contacts"
+                android:drawableTop="@drawable/tab_sd"
                 android:text="@string/mainTab2"
                 android:textColor="@color/tab_textview"/>
 
             <RadioButton
                 android:id="@+id/rb_tab3"
                 style="@style/mainTab"
-                android:drawableTop="@drawable/tab_friends"
+                android:drawableTop="@drawable/tab_chat"
                 android:text="@string/mainTab3"
                 />
 
             <RadioButton
                 android:id="@+id/rb_tab4"
+                style="@style/mainTab"
+                android:drawableTop="@drawable/tab_contacts"
+                android:text="@string/mainTab4"
+                />
+
+            <RadioButton
+                android:id="@+id/rb_tab5"
                 style="@style/mainTab"
                 android:drawableTop="@drawable/tab_setting"
                 android:text="@string/mainTab4"
@@ -84,6 +91,15 @@
 
                 <TextView
                     android:id="@+id/red_dot4"
+                    style="@style/red_dot"
+                    android:text=""/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                style="@style/RelativeLayout_red_dot">
+
+                <TextView
+                    android:id="@+id/red_dot5"
                     style="@style/red_dot"
                     android:text=""/>
             </RelativeLayout>

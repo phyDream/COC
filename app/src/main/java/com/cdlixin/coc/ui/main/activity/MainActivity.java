@@ -5,18 +5,10 @@ import android.widget.FrameLayout;
 
 import com.cdlixin.coc.R;
 import com.cdlixin.coc.global.BaseActivity;
-import com.cdlixin.coc.global.BaseFrament;
 import com.cdlixin.coc.global.BasePresenter;
-import com.cdlixin.coc.presenter.impl.MainActivityPresenter;
-import com.cdlixin.coc.ui.main.fragment.FourFragment;
-import com.cdlixin.coc.ui.main.fragment.OneFragment;
-import com.cdlixin.coc.ui.main.fragment.ThreeFragment;
-import com.cdlixin.coc.ui.main.fragment.TwoFragment;
+import com.cdlixin.coc.presenter.main.impl.MainActivityPresenter;
 import com.cdlixin.coc.ui.main.view.MainView;
 import com.cdlixin.coc.ui.main.widget.BottomTabBar;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 
@@ -27,7 +19,7 @@ public class MainActivity extends BaseActivity implements MainView{
     @Bind(R.id.bottomTabBar)
     BottomTabBar bottomTabBar;
 
-    private List<BaseFrament> framents = new ArrayList<>();
+
     private MainActivityPresenter mPresenter = (MainActivityPresenter) getPresenter();
 
     @Override
@@ -42,15 +34,12 @@ public class MainActivity extends BaseActivity implements MainView{
 
     @Override
     protected void initView() {
-
+        mPresenter.initFragments(this);
     }
 
     @Override
     protected void initData() {
-        framents.add(new OneFragment());
-        framents.add(new TwoFragment());
-        framents.add(new ThreeFragment());
-        framents.add(new FourFragment());
+
     }
 
     @Override
@@ -64,43 +53,29 @@ public class MainActivity extends BaseActivity implements MainView{
         bottomTabBar.setTabsClickListener(new BottomTabBar.TabsClickListener() {
             @Override
             public void clickTabOne() {
-                mPresenter.switchOne();
+                mPresenter.showFragment(0);
             }
 
             @Override
             public void clickTabTwo() {
-                mPresenter.switchOne();
+                mPresenter.showFragment(1);
             }
 
             @Override
             public void clickTabThree() {
-                mPresenter.switchOne();
+                mPresenter.showFragment(2);
             }
 
             @Override
             public void clickTabFour() {
-                mPresenter.switchOne();
+                mPresenter.showFragment(3);
+            }
+
+            @Override
+            public void clickTabFive() {
+                mPresenter.showFragment(4);
             }
         });
     }
 
-    @Override
-    public void switchOne() {
-
-    }
-
-    @Override
-    public void switchTwo() {
-
-    }
-
-    @Override
-    public void switchThree() {
-
-    }
-
-    @Override
-    public void switchFour() {
-
-    }
 }

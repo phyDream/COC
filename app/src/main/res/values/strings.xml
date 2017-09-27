@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">商会之家</string>
-    <string name="mainTab1">Tab1</string>
-    <string name="mainTab2">Tab2</string>
-    <string name="mainTab3">Tab3</string>
-    <string name="mainTab4">Tab4</string>
+    <string name="mainTab1">资讯</string>
+    <string name="mainTab2">供需</string>
+    <string name="mainTab3">商信</string>
+    <string name="mainTab4">联系人</string>
+    <string name="mainTab5">我</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

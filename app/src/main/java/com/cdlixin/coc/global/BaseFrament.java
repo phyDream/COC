@@ -1,12 +1,14 @@
 package com.cdlixin.coc.global;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import butterknife.ButterKnife;
 
 /**
  * Created by 蒲弘宇 on 2017/9/26.
@@ -60,8 +62,15 @@ public abstract class BaseFrament <V, T extends BasePresenter<V>> extends Fragme
                              Bundle savedInstanceState) {
         mContextView = inflater.inflate(bindLayout(), container, false);
         initView(mContextView);
+        ButterKnife.bind(this, mContextView);
         doBusiness(getActivity());
         return mContextView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 
     /**
@@ -72,16 +81,16 @@ public abstract class BaseFrament <V, T extends BasePresenter<V>> extends Fragme
     public abstract int bindLayout();
 
     /**
-     * 第一次显示时初始化数据
-     */
-    protected abstract void initData();
-
-    /**
      * [初始化控件]
      *
      * @param view
      */
     public abstract void initView(final View view);
+
+    /**
+     * 第一次显示时初始化数据
+     */
+    protected abstract void initData();
 
     /**
      * [业务操作]

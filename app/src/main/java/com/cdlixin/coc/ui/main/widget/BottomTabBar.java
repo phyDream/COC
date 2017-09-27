@@ -1,10 +1,10 @@
 package com.cdlixin.coc.ui.main.widget;
 
 import android.content.Context;
+import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -14,7 +14,6 @@ import com.cdlixin.coc.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Created by 蒲弘宇 on 2017/9/26.
@@ -24,6 +23,7 @@ import butterknife.OnClick;
 
 public class BottomTabBar extends LinearLayout {
 
+
     @Bind(R.id.rb_tab1)
     RadioButton rbTab1;
     @Bind(R.id.rb_tab2)
@@ -32,6 +32,8 @@ public class BottomTabBar extends LinearLayout {
     RadioButton rbTab3;
     @Bind(R.id.rb_tab4)
     RadioButton rbTab4;
+    @Bind(R.id.rb_tab5)
+    RadioButton rbTab5;
     @Bind(R.id.rgTabs)
     RadioGroup rgTabs;
     @Bind(R.id.red_dot1)
@@ -42,7 +44,8 @@ public class BottomTabBar extends LinearLayout {
     TextView redDot3;
     @Bind(R.id.red_dot4)
     TextView redDot4;
-
+    @Bind(R.id.red_dot5)
+    TextView redDot5;
 
     private TabsClickListener tabsClickListener;
 
@@ -54,6 +57,9 @@ public class BottomTabBar extends LinearLayout {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.bottom_tab_bar, this, true);
         ButterKnife.bind(this);
+        init();
+        doBusiness();
+        setListener();
     }
 
     @Override
@@ -68,38 +74,51 @@ public class BottomTabBar extends LinearLayout {
     }
 
     //业务逻辑实现
-    private void doBusiness(){
+    private void doBusiness() {
 
     }
 
-    //设置监听
-    public void setTabsClickListener(TabsClickListener tabsClickListener){
+    //设置监听器
+    private void setListener() {
+
+        rgTabs.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                switch (checkedId) {
+                    case R.id.rb_tab1:
+                        tabsClickListener.clickTabOne();
+                        break;
+                    case R.id.rb_tab2:
+                        tabsClickListener.clickTabTwo();
+                        break;
+                    case R.id.rb_tab3:
+                        tabsClickListener.clickTabThree();
+                        break;
+                    case R.id.rb_tab4:
+                        tabsClickListener.clickTabFour();
+                        break;
+                    case R.id.rb_tab5:
+                        tabsClickListener.clickTabFive();
+                        break;
+                }
+            }
+        });
+    }
+
+    public void setTabsClickListener(TabsClickListener tabsClickListener) {
         this.tabsClickListener = tabsClickListener;
     }
 
-    @OnClick({R.id.rb_tab1, R.id.rb_tab2, R.id.rb_tab3, R.id.rb_tab4})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.rb_tab1:
-                tabsClickListener.clickTabOne();
-                break;
-            case R.id.rb_tab2:
-                tabsClickListener.clickTabTwo();
-                break;
-            case R.id.rb_tab3:
-                tabsClickListener.clickTabThree();
-                break;
-            case R.id.rb_tab4:
-                tabsClickListener.clickTabFour();
-                break;
-        }
-    }
-
     //底部栏监听
-    public interface TabsClickListener{
+    public interface TabsClickListener {
         void clickTabOne();
+
         void clickTabTwo();
+
         void clickTabThree();
+
         void clickTabFour();
+
+        void clickTabFive();
     }
 }

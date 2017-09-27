@@ -6,8 +6,5 @@ package com.cdlixin.coc.ui.main.view;
  */
 
 public interface MainView {
-    void switchOne();
-    void switchTwo();
-    void switchThree();
-    void switchFour();
+
 }
