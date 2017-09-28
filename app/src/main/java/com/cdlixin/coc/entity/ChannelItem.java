@@ -1,10 +1,20 @@
 package com.cdlixin.coc.entity;
 
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Generated;
+
 /**
  * Created by 蒲弘宇 on 2017/9/27.
  */
-
+@Entity
 public class ChannelItem {
+
+    /**
+     * 表内主键
+     */
+    @Id(autoincrement = true)
+    private Long tableId;
     /**
      * 频道id
      */
@@ -27,8 +37,31 @@ public class ChannelItem {
      */
     private boolean chose;
 
+    @Generated(hash = 1842507087)
+    public ChannelItem(Long tableId, String id, String name, Integer orderId,
+            Integer selected, boolean chose) {
+        this.tableId = tableId;
+        this.id = id;
+        this.name = name;
+        this.orderId = orderId;
+        this.selected = selected;
+        this.chose = chose;
+    }
+
+    @Generated(hash = 1204777744)
+    public ChannelItem() {
+    }
+
+    public Long getTableId() {
+        return this.tableId;
+    }
+
+    public void setTableId(Long tableId) {
+        this.tableId = tableId;
+    }
+
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(String id) {
@@ -36,7 +69,7 @@ public class ChannelItem {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -44,7 +77,7 @@ public class ChannelItem {
     }
 
     public Integer getOrderId() {
-        return orderId;
+        return this.orderId;
     }
 
     public void setOrderId(Integer orderId) {
@@ -52,15 +85,15 @@ public class ChannelItem {
     }
 
     public Integer getSelected() {
-        return selected;
+        return this.selected;
     }
 
     public void setSelected(Integer selected) {
         this.selected = selected;
     }
 
-    public boolean isChose() {
-        return chose;
+    public boolean getChose() {
+        return this.chose;
     }
 
     public void setChose(boolean chose) {
@@ -70,7 +103,8 @@ public class ChannelItem {
     @Override
     public String toString() {
         return "ChannelItem{" +
-                "id='" + id + '\'' +
+                "tableId=" + tableId +
+                ", id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", orderId=" + orderId +
                 ", selected=" + selected +

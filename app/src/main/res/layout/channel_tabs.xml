@@ -14,12 +14,12 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        app:tabTextColor="@color/colorTitle"
+        app:tabTextColor="@color/textUnSelect"
         app:tabSelectedTextColor="@color/white"
         app:tabTextAppearance="@style/TabLayoutTextStyle"
         app:tabIndicatorColor="@color/white"
         app:tabIndicatorHeight="2dp"
-        app:tabMode="scrollable"></android.support.design.widget.TabLayout>
+        app:tabMode="scrollable"/>
 
     <Button
         android:id="@+id/btn_search"

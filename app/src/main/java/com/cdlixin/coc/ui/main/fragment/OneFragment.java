@@ -2,13 +2,10 @@ package com.cdlixin.coc.ui.main.fragment;
 
 
 import android.content.Context;
-import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.cdlixin.coc.R;
 import com.cdlixin.coc.entity.ChannelItem;
@@ -17,7 +14,7 @@ import com.cdlixin.coc.global.BaseFrament;
 import com.cdlixin.coc.global.BasePresenter;
 import com.cdlixin.coc.presenter.main.impl.NewsPresenter;
 import com.cdlixin.coc.ui.main.adapter.NewsPageAdapter;
-import com.cdlixin.coc.ui.main.widget.TopBar;
+import com.cdlixin.coc.ui.main.view.NewsPageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +25,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class OneFragment extends BaseFrament {
+public class OneFragment extends BaseFrament implements NewsPageView{
 
     @Bind(R.id.TopBar)
     com.cdlixin.coc.ui.main.widget.TopBar TopBar;
@@ -39,7 +36,7 @@ public class OneFragment extends BaseFrament {
     private NewsPresenter presenter;
     private NewsPageAdapter adapter;
     private TabLayout tabLayout;
-
+    private List<ChannelItem> channelItems = new ArrayList<>();
     @Override
     public int bindLayout() {
         return R.layout.fragment_one;
@@ -48,15 +45,7 @@ public class OneFragment extends BaseFrament {
     @Override
     public void initView(View view) {
         presenter = (NewsPresenter) mPresenter;
-        adapter = new NewsPageAdapter(getChildFragmentManager(),presenter.getChannels());
-        viewPager = (ViewPager) view.findViewById(R.id.viewPager);
-        TopBar = (TopBar) view.findViewById(R.id.TopBar);
-        viewPager.setAdapter(adapter);
-        viewPager.setOffscreenPageLimit(0);
-        adapter.notifyDataSetChanged();
-        tabLayout = TopBar.getTabLayout();
-        //为TabLayout设置ViewPager
-        tabLayout.setupWithViewPager(viewPager);
+        presenter.initChannels();
     }
 
     @Override
@@ -69,14 +58,47 @@ public class OneFragment extends BaseFrament {
 
     }
 
-    @Override
-    public void widgetClick(View v) {
 
+    @Override
+    public void setListener() {
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+            @Override
+            public void onPageSelected(int position) {
+
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
+
 
     @Override
     protected BasePresenter getPresenter() {
-        return new NewsPresenter((BaseActivity) getActivity());
+        return new NewsPresenter((BaseActivity) getActivity(),this);
     }
 
+    @Override
+    public void onClick(View v) {
+
+    }
+
+    @Override
+    public void showChannel(List<ChannelItem> channelItems) {
+        channelItems.addAll(channelItems);
+        adapter = new NewsPageAdapter(getChildFragmentManager(),channelItems);
+        viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(0);
+        adapter.notifyDataSetChanged();
+        tabLayout = TopBar.getTabLayout();
+        //为TabLayout设置ViewPager
+        tabLayout.setupWithViewPager(viewPager);
+    }
 }

@@ -61,8 +61,8 @@ public abstract class BaseFrament <V, T extends BasePresenter<V>> extends Fragme
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mContextView = inflater.inflate(bindLayout(), container, false);
-        initView(mContextView);
         ButterKnife.bind(this, mContextView);
+        initView(mContextView);
         doBusiness(getActivity());
         return mContextView;
     }
@@ -100,17 +100,10 @@ public abstract class BaseFrament <V, T extends BasePresenter<V>> extends Fragme
     public abstract void doBusiness(Context mContext);
 
     /** View点击 **/
-    public abstract void widgetClick(View v);
+    public abstract void setListener();
 
     //用于创建Presenter和判断是否使用MVP模式(由子类实现)
     protected abstract T getPresenter();
-
-
-    @Override
-    public void onClick(View v) {
-        if (fastClick())
-            widgetClick(v);
-    }
 
     @SuppressWarnings("unchecked")
     public <T extends View> T $(View view, int resId) {

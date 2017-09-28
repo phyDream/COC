@@ -12,9 +12,15 @@ import java.lang.ref.WeakReference;
 public class BasePresenter<V>{
 
     public BaseActivity mContext;
+    public BaseFrament frament;
 
     public BasePresenter(BaseActivity context) {
         mContext = context;
+    }
+
+    public BasePresenter(BaseActivity context,BaseFrament frament) {
+        mContext = context;
+        frament = frament;
     }
 
     protected Reference<V> mViewRef;

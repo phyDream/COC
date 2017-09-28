@@ -7,4 +7,6 @@
     <color name="black">#000000</color> <!--黑色 -->
     <color name="homeRadioButton">#03a1df</color>
     <color name="colorTitle">#1C99E0</color>
+    <color name="textSelect">#1C99E0</color>
+    <color name="textUnSelect">#98CAEF</color>
 </resources>

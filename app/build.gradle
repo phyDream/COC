@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
+
 
 android {
     compileSdkVersion 25
@@ -17,6 +19,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    greendao {
+        schemaVersion 1
+        daoPackage 'com.cdlixin.coc.model.greendaogen'
+        targetGenDir 'src/main/java'
+    }
 }
 
 dependencies {
@@ -26,8 +33,11 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.1'
-    compile 'com.jakewharton:butterknife:7.0.0'
+    testCompile 'junit:junit:4.12'
     compile 'com.android.support:support-v4:25.3.1'
+
+    compile 'com.jakewharton:butterknife:7.0.0'
+
     compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0-beta4'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
@@ -36,6 +46,10 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
     compile 'io.reactivex:rxandroid:1.1.0'
     compile 'io.reactivex:rxjava:1.1.0'
+
     compile 'com.android.support:design:25.3.1'
-    testCompile 'junit:junit:4.12'
+
+    compile 'org.greenrobot:greendao:3.2.0'
+    compile 'org.greenrobot:greendao-generator:3.2.0'
+
 }

@@ -38,13 +38,18 @@ public class FourFragment extends BaseFrament {
     }
 
     @Override
-    public void widgetClick(View v) {
+    public void setListener() {
 
     }
+
 
     @Override
     protected BasePresenter getPresenter() {
         return null;
     }
 
+    @Override
+    public void onClick(View v) {
+
+    }
 }

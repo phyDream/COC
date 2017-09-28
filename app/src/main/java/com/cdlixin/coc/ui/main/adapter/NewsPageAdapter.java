@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.cdlixin.coc.entity.ChannelItem;
 import com.cdlixin.coc.ui.news.NewsFragment;
+import com.cdlixin.coc.utils.LogUtil;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class NewsPageAdapter extends FragmentStatePagerAdapter {
         Bundle bundle = new Bundle();
         bundle.putString("id",channel.getId());
         fragment.setArguments(bundle);
-        return null;
+        return fragment;
     }
 
     @Override
@@ -46,4 +47,5 @@ public class NewsPageAdapter extends FragmentStatePagerAdapter {
         }
         else return null;
     }
+
 }

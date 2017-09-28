@@ -5,15 +5,16 @@
              android:layout_height="match_parent"
              tools:context="com.cdlixin.coc.ui.news.NewsFragment">
 
-    <com.handmark.pulltorefresh.library.PullToRefreshListView
-        android:id="@+id/newsList"
-        android:layout_width="match_parent"
-        android:divider="@null"
-        android:layout_height="match_parent"/>
+    <!--<com.handmark.pulltorefresh.library.PullToRefreshListView-->
+        <!--android:id="@+id/newsList"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:divider="@null"-->
+        <!--android:layout_height="match_parent"/>-->
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
         <TextView
             android:id="@+id/tv_default"
             android:gravity="center"

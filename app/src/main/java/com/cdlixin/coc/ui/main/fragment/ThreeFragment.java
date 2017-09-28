@@ -38,7 +38,7 @@ public class ThreeFragment extends BaseFrament {
     }
 
     @Override
-    public void widgetClick(View v) {
+    public void setListener() {
 
     }
 
@@ -47,4 +47,8 @@ public class ThreeFragment extends BaseFrament {
         return null;
     }
 
+    @Override
+    public void onClick(View v) {
+
+    }
 }

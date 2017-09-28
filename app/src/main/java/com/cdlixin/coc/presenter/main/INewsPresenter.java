@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface INewsPresenter {
 
-    List<ChannelItem> getChannels();
+    void initChannels();
 
 }
