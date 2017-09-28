@@ -1,6 +1,8 @@
 package com.cdlixin.coc.model.dao;
 
 import com.cdlixin.coc.entity.ChannelItem;
+import com.cdlixin.coc.model.greendaogen.ChannelItemDao;
+import com.cdlixin.coc.model.greendaogen.DaoMaster;
 
 import java.util.List;
 
@@ -9,6 +11,29 @@ import java.util.List;
  */
 
 public class MyChannelItemDao implements IBaseDao<ChannelItem>{
+
+    private static MyChannelItemDao instance = null;
+    private ChannelItemDao dao = null;
+
+    private MyChannelItemDao(){
+        dao = GreenDaoManger.getInstance().getDaosession().getChannelItemDao();
+    }
+
+    /**
+     * 带同步的单例
+     * @return
+     */
+    public static MyChannelItemDao getInstence(){
+        if(instance == null){
+            synchronized (MyChannelItemDao.class){
+                if(instance == null){
+                    instance = new MyChannelItemDao();
+                }
+            }
+        }
+        return instance;
+    }
+
     @Override
     public boolean insert(ChannelItem entity) {
         return false;
