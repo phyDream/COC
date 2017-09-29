@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
 import com.cdlixin.coc.R;
+import com.cdlixin.coc.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,9 @@ public abstract class BaseActivity <V, T extends BasePresenter<V>> extends Fragm
     private static BaseActivity mForegroundActivity = null;
 
     public T presenter;
+
+    //是否处于调试模式
+    public boolean DEBUG = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +73,13 @@ public abstract class BaseActivity <V, T extends BasePresenter<V>> extends Fragm
     public abstract T getPresenter();
 
     abstract protected void setListener();
+
+    //展示log
+    protected void showLog(String string){
+        if(DEBUG){
+            LogUtil.i(string);
+        }
+    };
 
     /**
      * [页面跳转]

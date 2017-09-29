@@ -35,7 +35,7 @@ public class ChannelItem {
     /**
      * 是否被选中:tue，选中; false,未选中。
      */
-    private boolean chose;
+    private boolean chose = false;
 
     @Generated(hash = 1842507087)
     public ChannelItem(Long tableId, String id, String name, Integer orderId,

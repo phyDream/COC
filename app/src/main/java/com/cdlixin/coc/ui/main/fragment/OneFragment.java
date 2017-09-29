@@ -6,7 +6,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-
 import com.cdlixin.coc.R;
 import com.cdlixin.coc.entity.ChannelItem;
 import com.cdlixin.coc.global.BaseActivity;
@@ -15,12 +14,11 @@ import com.cdlixin.coc.global.BasePresenter;
 import com.cdlixin.coc.presenter.main.impl.NewsPresenter;
 import com.cdlixin.coc.ui.main.adapter.NewsPageAdapter;
 import com.cdlixin.coc.ui.main.view.NewsPageView;
-
+import com.cdlixin.coc.utils.ToastUtils;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,7 +34,8 @@ public class OneFragment extends BaseFrament implements NewsPageView{
     private NewsPresenter presenter;
     private NewsPageAdapter adapter;
     private TabLayout tabLayout;
-    private List<ChannelItem> channelItems = new ArrayList<>();
+    private List<ChannelItem> channels = new ArrayList<>();
+
     @Override
     public int bindLayout() {
         return R.layout.fragment_one;
@@ -44,6 +43,7 @@ public class OneFragment extends BaseFrament implements NewsPageView{
 
     @Override
     public void initView(View view) {
+        DEBUG = false;
         presenter = (NewsPresenter) mPresenter;
         presenter.initChannels();
     }
@@ -92,13 +92,21 @@ public class OneFragment extends BaseFrament implements NewsPageView{
 
     @Override
     public void showChannel(List<ChannelItem> channelItems) {
-        channelItems.addAll(channelItems);
-        adapter = new NewsPageAdapter(getChildFragmentManager(),channelItems);
+        channels.addAll(channelItems);
+        adapter = new NewsPageAdapter(getChildFragmentManager(),channels);
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(0);
         adapter.notifyDataSetChanged();
         tabLayout = TopBar.getTabLayout();
         //为TabLayout设置ViewPager
         tabLayout.setupWithViewPager(viewPager);
+        showLog("~展示的频道列表~"+channelItems.size()+"~"+channelItems);
     }
+
+    @Override
+    public void showToast(String string) {
+        ToastUtils.showToast(getContext(),string);
+    }
+
+
 }

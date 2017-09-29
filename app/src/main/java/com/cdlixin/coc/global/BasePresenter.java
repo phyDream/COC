@@ -1,5 +1,7 @@
 package com.cdlixin.coc.global;
 
+import com.cdlixin.coc.utils.LogUtil;
+
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
 
@@ -13,6 +15,8 @@ public class BasePresenter<V>{
 
     public BaseActivity mContext;
     public BaseFrament frament;
+    //是否处于调试模式
+    public boolean DEBUG = true;
 
     public BasePresenter(BaseActivity context) {
         mContext = context;
@@ -20,7 +24,7 @@ public class BasePresenter<V>{
 
     public BasePresenter(BaseActivity context,BaseFrament frament) {
         mContext = context;
-        frament = frament;
+        this.frament = frament;
     }
 
     protected Reference<V> mViewRef;
@@ -39,6 +43,13 @@ public class BasePresenter<V>{
             mViewRef = null;
         }
     }
+
+    //展示log
+    protected void showLog(String string){
+        if(DEBUG){
+            LogUtil.i(string);
+        }
+    };
 
     public V getView() {
         return mViewRef != null ? mViewRef.get() : null;

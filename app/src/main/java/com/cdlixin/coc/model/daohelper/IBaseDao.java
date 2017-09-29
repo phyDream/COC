@@ -1,4 +1,4 @@
-package com.cdlixin.coc.model.dao;
+package com.cdlixin.coc.model.daohelper;
 import java.util.List;
 
 /**

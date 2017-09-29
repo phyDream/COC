@@ -11,4 +11,5 @@ import java.util.List;
 public interface NewsPageView {
 
     void showChannel(List<ChannelItem> channelItems);
+    void showToast(String string);
 }

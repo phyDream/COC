@@ -10,8 +10,10 @@ import android.os.IBinder;
 import android.os.Message;
 import android.text.TextUtils;
 
+import com.cdlixin.coc.model.daohelper.DataBaseManager;
 import com.cdlixin.coc.service.NetworkStateService;
 import com.cdlixin.coc.utils.AppUtil;
+import com.cdlixin.coc.utils.LogUtil;
 import com.cdlixin.coc.utils.SharedPreferencesHelper;
 
 import java.util.ArrayList;
@@ -44,7 +46,7 @@ public class MyApplication extends Application{
 
 
     //默认主进程包名
-    public static final String REAL_PACKAGE_NAME = "com.cdlixin.shanghuizhijia";
+    public static final String REAL_PACKAGE_NAME = "com.cdlixin.coc";
 
 
     /**
@@ -68,13 +70,14 @@ public class MyApplication extends Application{
 
     //默认进程中执行的初始化操作
     private void initAppForMainProcess(){
-
-        // initCrashHandler();
+        LogUtil.i("~APP初始化~");
         //共享参数初始化
         SharedPreferencesHelper.init(this);
+        //数据库管理器初始化
+        DataBaseManager.init(this);
         //对外提供app对象
         myApp = this;
-
+        //网络状态监听服务
         bindNetWorkStateService();
 
     }

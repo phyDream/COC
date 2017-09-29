@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cdlixin.coc.utils.LogUtil;
+
 import butterknife.ButterKnife;
 
 /**
@@ -18,6 +20,8 @@ public abstract class BaseFrament <V, T extends BasePresenter<V>> extends Fragme
 
     private View mContextView = null;
     protected T mPresenter;
+    //是否处于调试模式
+    public boolean DEBUG = true;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -104,6 +108,13 @@ public abstract class BaseFrament <V, T extends BasePresenter<V>> extends Fragme
 
     //用于创建Presenter和判断是否使用MVP模式(由子类实现)
     protected abstract T getPresenter();
+
+    //展示log
+    protected void showLog(String string){
+        if(DEBUG){
+            LogUtil.i(string);
+        }
+    };
 
     @SuppressWarnings("unchecked")
     public <T extends View> T $(View view, int resId) {

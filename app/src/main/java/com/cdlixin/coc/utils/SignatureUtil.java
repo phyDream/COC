@@ -23,6 +23,9 @@ import java.util.Map;
 
 public class SignatureUtil {
 
+    //是否处于调试模式
+    public static final boolean DEBUG = false;
+
     /**
      * 得到请求签名
      * @param baseUrl 请求头url
@@ -51,7 +54,7 @@ public class SignatureUtil {
                     try {
                         String str = String.format("%s=%s&", entry.getKey(), URLEncoder.encode(entry.getValue(), "UTF-8"));
 //                        String str = String.format("%s=%s&", entry.getKey(), getEncadeStr(entry.getValue()));
-                        LogUtil.i("~url参数： "+str);
+                        showLog("~url参数： "+str);
                         tamp.append(str);
                     } catch (Exception ex) {
                     }
@@ -64,8 +67,7 @@ public class SignatureUtil {
             else {
                 url = baseUrl+sectorUrl+"?"+parameters.substring(0,parameters.length()-1);//得到完整的url
             }
-            LogUtil.i("~~"+url);
-//            LogUtil.i(isPost+"~"+url+"&sign="+getMD5(url));
+            showLog(isPost+"~"+url+"&sign="+getMD5(url));
             return getMD5(url);
         }
         return null;
@@ -83,7 +85,7 @@ public class SignatureUtil {
                 e.printStackTrace();
             }
         }
-        LogUtil.i("~字符串长度~"+beforeEncadeStr.length());
+        showLog("~字符串长度~"+beforeEncadeStr.length());
         return beforeEncadeStr.toString();
     }
 
@@ -157,10 +159,6 @@ public class SignatureUtil {
         {
             MessageDigest md5 = MessageDigest.getInstance("MD5");
 
-//            String tmp = URLEncoder.encode(info, "UTF-8");
-//            LogUtil.i("~~"+tmp);
-//            md5.update(tmp.getBytes("UTF-8"));
-
             md5.update(info.getBytes("UTF-8"));
             byte[] encryption = md5.digest();
 
@@ -177,7 +175,7 @@ public class SignatureUtil {
                 }
             }
 
-//            LogUtil.i("~~"+URLDecoder.decode(strBuf.toString(), "UTF-8"));
+            showLog("~~"+URLDecoder.decode(strBuf.toString(), "UTF-8"));
             return URLDecoder.decode(strBuf.toString(), "UTF-8");
         }
         catch (NoSuchAlgorithmException e)
@@ -189,4 +187,11 @@ public class SignatureUtil {
             return "";
         }
     }
+
+    //展示log
+    public static void showLog(String string){
+        if(DEBUG){
+            LogUtil.i(string);
+        }
+    };
 }

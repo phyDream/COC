@@ -1,9 +1,10 @@
-package com.cdlixin.coc.model.dao;
+package com.cdlixin.coc.model.daohelper;
 
 import android.content.Context;
 
 import com.cdlixin.coc.model.greendaogen.DaoMaster;
 import com.cdlixin.coc.model.greendaogen.DaoSession;
+import com.cdlixin.coc.utils.LogUtil;
 
 import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.query.QueryBuilder;
@@ -41,9 +42,10 @@ public class DataBaseManager {
 
     public static synchronized void init(Context context){
 
+
         if(mInstance == null){
             mInstance = new DataBaseManager(context);
-
+            LogUtil.i("~数据库管理器初始化~");
         }
     }
 

@@ -1,4 +1,4 @@
-package com.cdlixin.coc.model.dao;
+package com.cdlixin.coc.model.daohelper;
 
 
 import com.cdlixin.coc.model.greendaogen.DaoSession;

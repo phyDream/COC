@@ -5,6 +5,10 @@ package com.cdlixin.coc.utils;
  */
 
     public final class LogUtil {
+
+        //日志开关
+        public static final boolean DEBUG = true;
+
         /**
          * Log default tag.
          */
@@ -101,6 +105,9 @@ package com.cdlixin.coc.utils;
 
         private static void printLog(int logType, String tag, String msg, Throwable e) {
             String tagStr = (tag == null) ? sTagDefault : tag;
+            if(!DEBUG){
+                return;
+            }
             if (sToggleRelease) {
                 if (logType < android.util.Log.INFO) {
                     return;
