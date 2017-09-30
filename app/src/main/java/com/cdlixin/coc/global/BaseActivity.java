@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.cdlixin.coc.R;
 import com.cdlixin.coc.utils.LogUtil;
+import com.cdlixin.coc.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,13 +74,6 @@ public abstract class BaseActivity <V, T extends BasePresenter<V>> extends Fragm
     public abstract T getPresenter();
 
     abstract protected void setListener();
-
-    //展示log
-    protected void showLog(String string){
-        if(DEBUG){
-            LogUtil.i(string);
-        }
-    };
 
     /**
      * [页面跳转]
@@ -212,4 +206,15 @@ public abstract class BaseActivity <V, T extends BasePresenter<V>> extends Fragm
         return true;
 
     }
+
+    /**
+     * 展示log
+     * @param string
+     */
+    protected void showLog(String string){
+        if(DEBUG){
+            LogUtil.i(string);
+        }
+    };
+
 }

@@ -6,4 +6,5 @@ package com.cdlixin.coc.global.constants;
  */
 
 public class IntentKey {
+    public static final String ChannelId = "ChannelId";
 }

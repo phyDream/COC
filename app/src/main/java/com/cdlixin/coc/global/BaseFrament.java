@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cdlixin.coc.utils.LogUtil;
+import com.cdlixin.coc.utils.ToastUtils;
 
 import butterknife.ButterKnife;
 
@@ -134,4 +135,5 @@ public abstract class BaseFrament <V, T extends BasePresenter<V>> extends Fragme
         lastClick = System.currentTimeMillis();
         return true;
     }
+
 }

@@ -10,7 +10,6 @@ import com.cdlixin.coc.R;
 import com.cdlixin.coc.entity.ChannelItem;
 import com.cdlixin.coc.global.BaseActivity;
 import com.cdlixin.coc.global.BaseFrament;
-import com.cdlixin.coc.global.BasePresenter;
 import com.cdlixin.coc.presenter.main.impl.NewsPresenter;
 import com.cdlixin.coc.ui.main.adapter.NewsPageAdapter;
 import com.cdlixin.coc.ui.main.view.NewsPageView;
@@ -23,7 +22,7 @@ import butterknife.Bind;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class OneFragment extends BaseFrament implements NewsPageView{
+public class OneFragment extends BaseFrament<NewsPageView,NewsPresenter> implements NewsPageView{
 
     @Bind(R.id.TopBar)
     com.cdlixin.coc.ui.main.widget.TopBar TopBar;
@@ -81,7 +80,7 @@ public class OneFragment extends BaseFrament implements NewsPageView{
 
 
     @Override
-    protected BasePresenter getPresenter() {
+    protected NewsPresenter getPresenter() {
         return new NewsPresenter((BaseActivity) getActivity(),this);
     }
 

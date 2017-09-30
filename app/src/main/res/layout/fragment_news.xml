@@ -1,33 +1,35 @@
-<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+             xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              xmlns:app="http://schemas.android.com/apk/res-auto"
-             android:id="@+id/refreshLayout"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             app:srlHeaderHeight="56dp"
-             app:srlFooterHeight="56dp"
-             tools:context="com.cdlixin.coc.ui.news.NewsFragment">
+             android:orientation="vertical"
+             tools:context="com.cdlixin.coc.ui.news.fragment.NewsFragment">
 
-    <FrameLayout
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
-        <TextView
-            android:id="@+id/tv_default"
-            android:gravity="center"
-            android:textSize="28sp"
-            android:textColor="#b8b8b8"
-            android:text="@string/app_name"
+        app:srlEnableHeaderTranslationContent="true"
+        app:srlEnableLoadmore="true">
+        <com.scwang.smartrefresh.layout.header.ClassicsHeader
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </FrameLayout>
+            android:layout_height="48dp"
+            app:srlClassicsSpinnerStyle="Scale"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            tools:listitem="@android:layout/simple_list_item_2"/>
+        <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:overScrollMode="never"
-        android:visibility="gone"
-        android:background="#fff" />
 
-</com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+</LinearLayout>
+
+

@@ -26,7 +26,7 @@ import rx.Subscriber;
  * Created by Administrator on 2017/9/27 0027.
  */
 
-public class NewsPresenter extends BasePresenter implements INewsPresenter{
+public class NewsPresenter extends BasePresenter<NewsPageView> implements INewsPresenter{
 
     private NewsPageView view;
     private ChannelModel channelModel;

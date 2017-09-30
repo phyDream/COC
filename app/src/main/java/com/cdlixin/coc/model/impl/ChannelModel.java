@@ -30,7 +30,7 @@ import rx.schedulers.Schedulers;
 public class ChannelModel {
 
     //请求生成器
-    private static HttpService service = new RequestManger().getService();
+    private  HttpService service = new RequestManger(Url.BASE_URL).getService();
     //数据库操作对象
     private MyChannelItemDao dao = MyChannelItemDao.getInstence();
 
@@ -103,7 +103,6 @@ public class ChannelModel {
                         return channelItems;
                     }
                 })
-                .distinct()//去重复
                 .map(new Func1<List<ChannelItem>, List<ChannelItem>>() {//设置是否展示标记
                     @Override
                     public List<ChannelItem> call(List<ChannelItem> channelItems) {

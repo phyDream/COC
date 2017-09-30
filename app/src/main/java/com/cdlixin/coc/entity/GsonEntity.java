@@ -12,11 +12,22 @@ public class GsonEntity {
      */
     private List<ChannelItem> channels;
 
+    private List<NewsEntity> news;
+
+
     public List<ChannelItem> getChannels() {
         return channels;
     }
 
     public void setChannels(List<ChannelItem> channels) {
         this.channels = channels;
+    }
+
+    public List<NewsEntity> getNews() {
+        return news;
+    }
+
+    public void setNews(List<NewsEntity> news) {
+        this.news = news;
     }
 }

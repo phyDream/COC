@@ -22,7 +22,7 @@ public class RequestManger {
     private static final int OUTTIME = 5;
 
 
-    public RequestManger() {
+    public RequestManger(String baseUrl) {
 
         OkHttpClient client = new OkHttpClient.Builder()
                 // 连接超时时间设置
@@ -35,7 +35,7 @@ public class RequestManger {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Url.BASE_URL)
+                .baseUrl(baseUrl)
                 .client(client)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(ScalarsConverterFactory.create()) //使用工厂模式创建字符串的解析器

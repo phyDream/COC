@@ -6,8 +6,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.cdlixin.coc.entity.ChannelItem;
-import com.cdlixin.coc.ui.news.NewsFragment;
-import com.cdlixin.coc.utils.LogUtil;
+import com.cdlixin.coc.global.constants.IntentKey;
+import com.cdlixin.coc.ui.news.fragment.NewsFragment;
 
 import java.util.List;
 
@@ -29,7 +29,7 @@ public class NewsPageAdapter extends FragmentStatePagerAdapter {
         ChannelItem channel = channelItems.get(position);
         Fragment fragment = new NewsFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("id",channel.getId());
+        bundle.putString(IntentKey.ChannelId,channel.getId());
         fragment.setArguments(bundle);
         return fragment;
     }
