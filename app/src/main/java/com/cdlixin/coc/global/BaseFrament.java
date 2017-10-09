@@ -1,5 +1,6 @@
 package com.cdlixin.coc.global;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,6 +24,7 @@ public abstract class BaseFrament <V, T extends BasePresenter<V>> extends Fragme
     protected T mPresenter;
     //是否处于调试模式
     public boolean DEBUG = true;
+    public Activity activity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,8 @@ public abstract class BaseFrament <V, T extends BasePresenter<V>> extends Fragme
         mContextView = inflater.inflate(bindLayout(), container, false);
         ButterKnife.bind(this, mContextView);
         initView(mContextView);
+        activity = getActivity();
+        setListener();
         doBusiness(getActivity());
         return mContextView;
     }

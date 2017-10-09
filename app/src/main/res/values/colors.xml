@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#1C99E0</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color> <!--黑色 -->
     <color name="homeRadioButton">#03a1df</color>
@@ -10,4 +10,10 @@
     <color name="textSelect">#1C99E0</color>
     <color name="textUnSelect">#98CAEF</color>
     <color name="newsSource">#bababa</color>
+    <color name="main">#222222</color>
+    <color name="org_divider_color">#f2f0f0</color>
+    <color name="titleTextcolor">#ffffff</color>
+    <color name="colorLineBetween">#bababa</color>
+    <color name="Hint">#dadada</color>
+    <color name="backGround">#ebebeb</color>
 </resources>

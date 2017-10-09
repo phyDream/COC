@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:background="#f9f7f7"
+    tools:context="com.cdlixin.coc.ui.user.activity.LoginActivity">
+
+    <com.cdlixin.coc.ui.common.widget.TitleBar
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        app:title="@string/login"
+        app:titleBar_color="@color/colorTitle"
+        app:isWithBack="true"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/lin_input"
+            android:padding="8dp">
+            <ImageView
+                android:id="@+id/img_userhead"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_margin="8dp"
+                android:src="@drawable/default_avatar"/>
+            <EditText
+                android:id="@+id/et_userName"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:hint="@string/inputUserName"
+                android:textColorHint="@color/Hint"
+                android:enabled="true"
+                android:focusable="true"
+                android:editable="true"
+                android:textSize="16sp"
+                android:background="@null"
+                android:paddingLeft="8dp"
+                android:inputType="phone"
+                android:maxLength="11" />
+            <ImageView
+                android:id="@+id/img_clearText1"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/cancel_channel"
+                android:visibility="gone"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/lin_input"
+            android:layout_marginTop="16dp"
+            android:gravity="center_vertical"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="16dp">
+            <ImageView
+                android:id="@+id/img_inputCode"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_margin="8dp"
+                android:src="@drawable/password"/>
+            <EditText
+                android:id="@+id/et_verificationCode"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:hint="@string/verificationCode"
+                android:textColorHint="@color/Hint"
+                android:textSize="16sp"
+                android:background="@null"
+                android:paddingLeft="8dp"
+                android:inputType="number"
+                android:maxLength="4" />
+            <ImageView
+                android:id="@+id/img_clearText2"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/cancel_channel"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp"
+                android:visibility="gone"/>
+            <Button
+                android:id="@+id/btn_getCode"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:text="@string/getVerificationCode"
+                android:textColor="@color/white"
+                android:background="@drawable/btn_getcode_can"
+                android:visibility="gone" />
+            <Button
+                android:id="@+id/btn_getCode2"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:text="@string/getVerificationCode"
+                android:textColor="@color/Hint"
+                android:background="@drawable/btn_getcode" />
+            <TextView
+                android:id="@+id/tv_countDown"
+                android:text="60秒后重新获取"
+                android:gravity="center"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"
+                android:textColor="@color/Hint"
+                android:layout_width="wrap_content"
+                android:background="@drawable/btn_getcode"
+                android:visibility="gone"
+                android:layout_height="24dp" />
+        </LinearLayout>
+
+
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/btn_login"
+            android:layout_marginTop="32dp"
+            android:text="@string/login"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+
+
+</LinearLayout>

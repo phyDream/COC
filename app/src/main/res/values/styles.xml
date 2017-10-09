@@ -60,4 +60,27 @@
     <style name="TabLayoutTextStyle">
         <item name="android:textSize">@dimen/title_textSize</item>
     </style>
+
+    <style name="TitleImg" >
+        <!-- 标题栏图片样式 -->
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+    </style>
+
+    <style name="TitleText" >
+        <!-- 标题栏标题样式 -->
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/titleTextcolor</item>
+        <item name="android:textSize">@dimen/title_textSize</item>
+    </style>
+
+    <!--带有返回按钮的标题样式-->
+    <style name="titlebarWithback">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/title_height</item>
+        <item name="android:background">@color/colorTitle</item>
+        <item name="android:paddingLeft">@dimen/itemPadding</item>
+        <item name="android:paddingRight">@dimen/itemPadding12_dp</item>
+    </style>
 </resources>

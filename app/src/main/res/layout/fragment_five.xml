@@ -1,13 +1,246 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
+             android:orientation="vertical"
              tools:context="com.cdlixin.coc.ui.main.fragment.FiveFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"/>
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:id="@+id/rel_skipToLogin"
+            android:paddingTop="48dp"
+            android:paddingBottom="16dp"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+            <Button
+                android:id="@+id/btn_skipToLogin"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_centerHorizontal="true"
+                android:text="@string/login"
+                android:textSize="17sp"
+                android:textColor="@color/white"
+                android:background="@drawable/btn_login_or_register" />
+            <TextView
+                android:id="@+id/tv_textForLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_centerHorizontal="true"
+                android:textSize="16sp"
+                android:textColor="@color/main"
+                android:layout_below="@+id/btn_skipToLogin"
+                android:text="@string/textForLogin" />
+            <TextView
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:layout_marginTop="13dp"
+                android:text=""
+                android:layout_below="@+id/tv_textForLogin"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rel_center"
+            android:paddingTop="32dp"
+            android:paddingBottom="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_userfragment_title"
+            android:orientation="vertical"
+            android:visibility="gone">
+            <com.cdlixin.coc.ui.user.widget.CircleImageView
+                android:id="@+id/img_userhead"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                app:border_width="1.5dp"
+                app:border_overlay="false"
+                app:border_color="@color/white"
+                android:scaleType="centerCrop"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/default_avatar" />
+            <TextView
+                android:id="@+id/tv_companyName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/img_userhead"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:textSize="16sp"
+                android:textColor="#ffffff"
+                android:text="" />
+            <TextView
+                android:id="@+id/tv_userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_companyName"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="13dp"
+                android:textSize="14sp"
+                android:textColor="#ffffff"
+                android:text="" />
+        </RelativeLayout>
+    </FrameLayout>
 
-</FrameLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#f2f0f0"/>
+    <LinearLayout
+        android:id="@+id/lin_userInfo"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/white">
+        <ImageView
+            android:id="@+id/img_userInfo"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="20dp"
+            android:scaleType="fitCenter"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/myself" />
+
+        <TextView
+            android:id="@+id/tv_userInfo"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textColor="@color/main"
+            android:textSize="17sp"
+            android:layout_height="wrap_content"
+            android:text="@string/userInfo"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_height="1dp"
+        android:background="#f2f0f0" />
+    <LinearLayout
+        android:id="@+id/lin_collectManage"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/white">
+        <ImageView
+            android:id="@+id/img_collectManage"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="20dp"
+            android:scaleType="fitCenter"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/collected" />
+        <TextView
+            android:id="@+id/tv_collectManage"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textSize="17sp"
+            android:textColor="@color/main"
+            android:layout_height="wrap_content"
+            android:text="@string/collectManage"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#f2f0f0" />
+    <LinearLayout
+        android:id="@+id/lin_setting"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/white">
+        <ImageView
+            android:id="@+id/img_setting"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="4dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/setting"/>
+        <TextView
+            android:id="@+id/tv_setting"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textColor="@color/main"
+            android:textSize="17sp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="@string/setting"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_height="1dp"
+        android:background="#f2f0f0"/>
+
+    <LinearLayout
+        android:id="@+id/lin_suggestion"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/white">
+        <ImageView
+            android:id="@+id/img_suggestion"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:scaleType="fitCenter"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/feedback" />
+        <TextView
+            android:id="@+id/tv_suggestion"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textColor="@color/main"
+            android:textSize="17sp"
+            android:layout_height="wrap_content"
+            android:text="@string/suggestion"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/org_divider_color"
+        android:layout_height="10dp"/>
+    <LinearLayout
+        android:id="@+id/lin_agreement"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/white">
+        <ImageView
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="20dp"
+            android:scaleType="fitCenter"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/bussiness" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textColor="@color/main"
+            android:textSize="17sp"
+            android:layout_height="wrap_content"
+            android:text="@string/serviceAgreement"/>
+    </LinearLayout>
+
+
+</LinearLayout>
