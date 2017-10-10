@@ -118,4 +118,8 @@ public class MyApplication extends Application{
         }
     };
 
+    public static String geResStr(int id){
+        return getAppContext().getResources().getString(id);
+    }
+
 }

@@ -94,7 +94,7 @@ public class TitleBar extends RelativeLayout {
         ButterKnife.unbind(this);
     }
 
-    interface ClickBackListener{
+    public interface ClickBackListener{
         void clickBack();
     }
 

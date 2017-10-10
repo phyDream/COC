@@ -6,4 +6,7 @@ package com.cdlixin.coc.ui.user.view;
 
 public interface LoginView {
     void showToast(String string);
+    void countDown();
+    void checkPhoneNumIng();
+    void checkPhoneFaile();
 }
