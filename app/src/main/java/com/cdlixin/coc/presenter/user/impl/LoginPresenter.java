@@ -8,10 +8,13 @@ import com.cdlixin.coc.global.BasePresenter;
 import com.cdlixin.coc.model.impl.LoginModel;
 import com.cdlixin.coc.presenter.user.LoginToDo;
 import com.cdlixin.coc.ui.user.view.LoginView;
+import com.cdlixin.coc.utils.DeviceManager;
 import com.cdlixin.coc.utils.GsonUtil;
+import com.cdlixin.coc.utils.LogUtil;
 import com.cdlixin.coc.utils.NetWorkUtil;
 import com.google.gson.reflect.TypeToken;
 
+import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscriber;
 
 /**
@@ -22,6 +25,7 @@ public class LoginPresenter extends BasePresenter<LoginView> implements LoginToD
 
     private LoginView loginView;
     private LoginModel loginModel;
+    private String simNumber;
 
     public LoginPresenter(BaseActivity context) {
         super(context);
@@ -72,6 +76,28 @@ public class LoginPresenter extends BasePresenter<LoginView> implements LoginToD
 
     @Override
     public void getSmsVerifyCode(String phoneNumber) {
+        simNumber = DeviceManager.getSIMNumber();
+        Subscriber<String> sb = new Subscriber<String>() {
+            @Override
+            public void onCompleted() {
+            }
+            @Override
+            public void onError(Throwable e) {
 
+            }
+            @Override
+            public void onNext(String string) {
+                Result result = GsonUtil.GsonToBean(string,new TypeToken<Result>(){}.getType());
+                if(DEBUG) {
+                    showLog("获取验证码~~~~~"+result.toString());
+                }
+            }
+        };
+
+        if(NetWorkUtil.isNetworkConnected()){
+            loginModel.sms_verify(phoneNumber,simNumber,sb);
+        }else {
+            loginView.showToast("网络连接失败");
+        }
     }
 }

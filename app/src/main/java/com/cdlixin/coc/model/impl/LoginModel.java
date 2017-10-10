@@ -50,6 +50,16 @@ public class LoginModel {
     }
 
     /**
+     * 得到设备节点的签名字符串
+     * @param map
+     * @param isPost 请求方式是否为post
+     * @return
+     */
+    private static String getDeviceSign(Map<String,String> map, boolean isPost){
+        return SignatureUtil.getSign(Url.BASE_URL, Url.DEVICE,map,isPost);
+    }
+
+    /**
      * 得到账户节点的签名字符串
      * @param map
      * @param isPost 请求方式是否为post
@@ -73,6 +83,27 @@ public class LoginModel {
         map.put("mobile",mobile);
 
         Observable<String> call = service.check_mobile("check_mobile",time,mobile,getAccountSign(map,true));
+        Subscription subscription = call //note2
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(sb);
+    }
+
+    /**
+     * 短信验证，输入手机号得到短信验证码
+     * @param mobile
+     * @param uid
+     */
+    public void sms_verify(String mobile,String uid,Subscriber<String> sb){
+        //发起请求时的Unix时间戳，使用格林威治标准时间
+        int time = (int) TimeUtil.getGMTUnixTimeByCalendar();
+        //参数键值对
+        Map<String,String> map = new LinkedHashMap<>();
+        map.put("method","sms_verify");
+        map.put("timestamp",time+"");
+        map.put("mobile",mobile);
+        map.put("uid",uid);
+        Observable<String> call = service.sms_verify("sms_verify",time,mobile,uid,getDeviceSign(map,true));
         Subscription subscription = call //note2
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
