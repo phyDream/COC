@@ -3,10 +3,11 @@ package com.cdlixin.coc.presenter.user.impl;
 
 import com.cdlixin.coc.R;
 import com.cdlixin.coc.entity.Result;
+import com.cdlixin.coc.entity.UserEntity;
 import com.cdlixin.coc.global.BaseActivity;
 import com.cdlixin.coc.global.BasePresenter;
 import com.cdlixin.coc.global.MyApplication;
-import com.cdlixin.coc.model.impl.LoginModel;
+import com.cdlixin.coc.model.impl.UserModel;
 import com.cdlixin.coc.presenter.user.LoginToDo;
 import com.cdlixin.coc.ui.user.view.LoginView;
 import com.cdlixin.coc.utils.DeviceManager;
@@ -24,13 +25,13 @@ import rx.Subscriber;
 public class LoginPresenter extends BasePresenter<LoginView> implements LoginToDo{
 
     private LoginView loginView;
-    private LoginModel loginModel;
+    private UserModel userModel;
     private String simNumber;
 
     public LoginPresenter(BaseActivity context) {
         super(context);
         loginView = (LoginView) context;;
-        loginModel = LoginModel.getInstance();
+        userModel = UserModel.getInstance();
     }
 
     @Override
@@ -66,7 +67,7 @@ public class LoginPresenter extends BasePresenter<LoginView> implements LoginToD
         };
         if(NetWorkUtil.isNetworkConnected()){
             //得到最近一次获取验证码时间
-            int getLastCodeTime = loginModel.getCodeTime();
+            int getLastCodeTime = userModel.getCodeTime();
             int currTime = TimeUtil.getCurrentTimes();
             int time = currTime-getLastCodeTime;
             if(time <= 60){
@@ -74,9 +75,9 @@ public class LoginPresenter extends BasePresenter<LoginView> implements LoginToD
             }else{
                 loginView.checkPhoneNumIng();
                 //检查手机号
-                loginModel.check_mobile(phoneNumber,sb);
+                userModel.check_mobile(phoneNumber,sb);
                 //存入该手机号
-                loginModel.savePhoneNum(phoneNumber);
+                userModel.savePhoneNum(phoneNumber);
             }
 
         }else {
@@ -92,7 +93,7 @@ public class LoginPresenter extends BasePresenter<LoginView> implements LoginToD
         Subscriber<String> sb = new Subscriber<String>() {
             @Override
             public void onCompleted() {
-                showLog("获取验证码~~~~~");
+                showLog("获取验证码完成~~~~~");
             }
             @Override
             public void onError(Throwable e) {
@@ -104,13 +105,13 @@ public class LoginPresenter extends BasePresenter<LoginView> implements LoginToD
                 showLog("获取验证码~~~~~"+result.getResponse_msg());
                 if(result.getResponse_msg() != null) {
                     loginView.showToast(result.getResponse_msg());
-                    loginModel.saveCodeTime();
+                    userModel.saveCodeTime();
                 }
             }
         };
 
         if(NetWorkUtil.isNetworkConnected()){
-            loginModel.sms_verify(phoneNumber,simNumber,sb);
+            userModel.sms_verify(phoneNumber,simNumber,sb);
         }else {
             loginView.showToast(MyApplication.geResStr(R.string.Network_connection_failed));
         }
@@ -118,7 +119,7 @@ public class LoginPresenter extends BasePresenter<LoginView> implements LoginToD
 
     @Override
     public String getPhoneNum() {
-        return loginModel.getPhoneNum();
+        return userModel.getPhoneNum();
     }
 
     @Override
@@ -134,16 +135,18 @@ public class LoginPresenter extends BasePresenter<LoginView> implements LoginToD
             @Override
             public void onNext(String string) {
                 Result result = GsonUtil.GsonToBean(string,new TypeToken<Result>(){}.getType());
-                showLog("手机注册————"+string);
+                showLog("设备注册~~"+string);
+                showLog("账户验证~~"+"deviceId~"+deviceId+"simNumber~"+simNumber);
                 if(result.getResponse_code() == 0){
                     verify(10,deviceId,simNumber,"");
                 }
-
+                loginView.showToast(result.getResponse_msg());
             }
         };
 
         if(NetWorkUtil.isNetworkConnected()){
-            loginModel.register(deviceId,uid,phoneNub,1,verifyCode,sb);
+            showLog("设备注册请求~~"+"deviceId~"+deviceId+"simNumber~"+simNumber+"phoneNub~"+phoneNub+simNumber+"verifyCode~"+verifyCode);
+            userModel.register(deviceId,simNumber,phoneNub,1,verifyCode,sb);
         }else {
             loginView.showToast(MyApplication.geResStr(R.string.Network_connection_failed));
         }
@@ -151,63 +154,26 @@ public class LoginPresenter extends BasePresenter<LoginView> implements LoginToD
 
     @Override
     public void verify(int auth_mode, String deviceId, String userId, String password) {
-        Subscriber<String> subscriber = new Subscriber<String>() {
+        Subscriber<UserEntity> sb = new Subscriber<UserEntity>() {
             @Override
             public void onCompleted() {
-
+                showLog("身份验证完成~");
             }
             @Override
             public void onError(Throwable e) {
-                showLog("身份验证失败");
+                showLog("身份验证失败~");
             }
             @Override
-            public void onNext(String string) {
-                showLog("用户账号信息~"+string);
-                Result result = GsonUtil.GsonToBean(string,new TypeToken<Result>(){}.getType());
-//                Result<UserEntity> userResult = GsonUtil.GsonToBean(string,new TypeToken<Result<UserEntity>>(){}.getType());
-
-//                if(userResult.getResponse_code() == 0){
-//
-//                    MyApplication.isUserLogin = true;
-//                    //用户登陆过
-//                    LocalUserManager.getInstance().setIsUserLogin(true);
-//                    //用户登陆状态
-//                    LocalUserManager.getInstance().setLastTimeLoginState(true);
-//
-//                    UserEntity user =  userResult.getResponse_data();
-//                    LogUtil.e("用户身份验证信息~"+string);
-//
-//                    /**
-//                     * 发送广播更新界面
-//                     */
-//                    Intent intent = new Intent(IntentPutKey.ACTION_UPDATE_USER_FRAGMENT);
-//                    MyApplication.getAppContext().sendBroadcast(intent);
-//
-//                    /**
-//                     * 保存用户信息到本地
-//                     */
-//                    LocalUserManager.getInstance().saveUserBean(user);
-//                    /**
-//                     * 保存用户字符串
-//                     */
-//                    LocalUserManager.getInstance().saveUserJsonString(string);
-//
-//                    //登录成功绑定推送
-//                    MyPushManager.bindPush(MyApplication.getAppContext(),user.getU_id());
-//                }else {
-//                    MyApplication.isUserLogin = false;
-//                    LocalUserManager.getInstance().setLastTimeLoginState(false);
-//                    LocalUserManager.getInstance().clearUserEntity();
-//                }
+            public void onNext(UserEntity userEntity) {
+                showLog("用户账号信息~"+userEntity);
             }
         };
-//        if(NetWorkUtil.isNetworkAvailable()){
-//            AccountNetworkManager.verify(auth_mode,mobileUuid,userId,password,subscriber);
-//        }else {
-//            msg.what = NetWorkUtil.NETWORK_FAILED;
-//            if(null !=handler){
-//                handler.sendMessage(msg);}
-//        }
-//        loginModel.verify(10,deviceId,"",sb);
+        if(NetWorkUtil.isNetworkAvailable()){
+            showLog("身份验证请求~");
+            userModel.verify(10,deviceId,userId,"",sb);
+        }else {
+            loginView.showToast(MyApplication.geResStr(R.string.Network_connection_failed));
+        }
+
     }
 }

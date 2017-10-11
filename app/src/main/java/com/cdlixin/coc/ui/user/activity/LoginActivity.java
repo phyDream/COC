@@ -259,7 +259,7 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
                     etUserName.setFocusableInTouchMode(true);
                     etUserName.setFocusable(true);
                     etUserName.requestFocus();
-                    etUserName.setTextColor(MyApplication.getAppContext().getResources().getColor(R.color.titleTextcolor));
+                    etUserName.setTextColor(MyApplication.getAppContext().getResources().getColor(R.color.main));
                     etUserName.setEnabled(true);
                 }
 

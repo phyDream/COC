@@ -14,7 +14,6 @@ public class GsonEntity {
 
     private List<NewsEntity> news;
 
-
     public List<ChannelItem> getChannels() {
         return channels;
     }

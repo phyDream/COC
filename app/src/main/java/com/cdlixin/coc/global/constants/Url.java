@@ -7,10 +7,10 @@ package com.cdlixin.coc.global.constants;
 
 public class Url {
     //外网服务器
-//    public static final String BASE_URL = "http://mobile.shzj168.cn/rest/1.0/";
+    public static final String BASE_URL = "http://mobile.shzj168.cn/rest/1.0/";
 
     //测试
-    public static final String BASE_URL = "http://172.20.2.30:8000/rest/1.0/";
+//    public static final String BASE_URL = "http://172.20.2.30:8000/rest/1.0/";
 
     //APP
     public static final String APP = "app/";

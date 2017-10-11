@@ -86,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/verificationCode"
                 android:textColorHint="@color/Hint"
-                android:textColor="@color/titleTextcolor"
+                android:textColor="@color/main"
                 android:textSize="16sp"
                 android:background="@null"
                 android:paddingLeft="8dp"

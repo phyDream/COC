@@ -2,14 +2,18 @@ package com.cdlixin.coc.model.impl;
 
 import android.text.TextUtils;
 
+import com.cdlixin.coc.entity.Result;
+import com.cdlixin.coc.entity.UserEntity;
 import com.cdlixin.coc.global.constants.SpKey;
 import com.cdlixin.coc.global.constants.Url;
-import com.cdlixin.coc.model.dao.MyNewsDao;
 import com.cdlixin.coc.model.network.HttpService;
 import com.cdlixin.coc.model.network.RequestManger;
+import com.cdlixin.coc.utils.GsonUtil;
+import com.cdlixin.coc.utils.LogUtil;
 import com.cdlixin.coc.utils.SharedPreferencesHelper;
 import com.cdlixin.coc.utils.SignatureUtil;
 import com.cdlixin.coc.utils.TimeUtil;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -18,30 +22,32 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
  * Created by 蒲弘宇 on 2017/10/9.
  */
 
-public class LoginModel {
+public class UserModel {
 
     //请求生成器
     private HttpService service = new RequestManger(Url.BASE_URL).getService();
-    private static LoginModel loginModel = null;
+    private static UserModel userModel = null;
 
     //是否处于调试模式
     public boolean DEBUG = true;
 
-    public static LoginModel getInstance(){
-        if(loginModel == null){
+    public static UserModel getInstance(){
+        if(userModel == null){
             synchronized (NewsModel.class){
-                if(loginModel == null){
-                    loginModel = new LoginModel();
+                if(userModel == null){
+                    userModel = new UserModel();
                 }
             }
         }
-        return loginModel;
+        return userModel;
     }
 
     /**
@@ -186,7 +192,7 @@ public class LoginModel {
      * @param userId 登录用户名（可选）手机uid验证模式下，该参数为空。
      * @param pwd 密码（可选）；手机uid验证模式下，该参数为空。密码字符串使用ASCII方式编码后，采用SHA256进行加密。即：pwd=SHA256(ASCII(password))
      */
-    public void verify(int auth_mode,String mobileId,String userId,String pwd,Subscriber<String> subscriber) {
+    public void verify(int auth_mode,String mobileId,String userId,String pwd,Subscriber<UserEntity> subscriber) {
         //发起请求时的Unix时间戳，使用格林威治标准时间
         int time = (int) TimeUtil.getGMTUnixTimeByCalendar();
         //参数键值对
@@ -202,7 +208,43 @@ public class LoginModel {
         Subscription subscription = call //note2
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .map(new Func1<String, UserEntity>() {
+                    @Override
+                    public UserEntity call(String string) {
+                        showLog("用户信息~"+string);
+                        UserEntity user = null;
+                        Result<UserEntity> userResult = GsonUtil.GsonToBean(string,new TypeToken<Result<UserEntity>>(){}.getType());
+                        if(userResult.getResponse_code() == 0){
+                             user =  userResult.getResponse_data();
+                        }
+                        return user;
+                    }
+                })
+
                 .subscribe(subscriber);
     }
+
+    /**
+     * 存入用户信息
+     * @param userEntity
+     */
+    public void saveUserInfo(UserEntity userEntity){
+
+    }
+
+    /**
+     * 得到信息
+     * @return
+     */
+    public UserEntity getUserInfo(){
+        return null;
+    }
+
+    //展示log
+    protected void showLog(String string){
+        if(DEBUG){
+            LogUtil.i(string);
+        }
+    };
 
 }
