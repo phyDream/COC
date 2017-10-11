@@ -8,4 +8,6 @@ package com.cdlixin.coc.global.constants;
 public class SpKey {
     public static final String loginDefultPhone = "loginDefultPhone";
     public static final String getCodeTime = "getCodeTime";
+    //当前用户id
+    public static final String currUserId = "currUserId";
 }

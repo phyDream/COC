@@ -73,7 +73,26 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
 
     @Override
     protected void initView() {
+        //获取权限
+        AndPermission.with(LoginActivity.this)
+                .requestCode(100)
+                .callback(new PermissionListener() {
+                    @Override
+                    public void onSucceed(int requestCode, @NonNull List<String> grantPermissions) {
+                        if (requestCode == 200) {
 
+                        }
+                    }
+
+                    @Override
+                    public void onFailed(int requestCode, @NonNull List<String> deniedPermissions) {
+                        if (requestCode == 200) {
+                            showToast(MyApplication.geResStr(R.string.Failed_to_access_the_phone_card_serial_number));
+                        }
+                    }
+                })
+                .permission(Manifest.permission.READ_PHONE_STATE)
+                .start();
     }
 
     @Override
@@ -107,25 +126,6 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
                 final String phone = etUserName.getText().toString();
                 //获取读取SIM卡序列号权限
                 if (!TextUtils.isEmpty(phone)) {
-                    AndPermission.with(LoginActivity.this)
-                            .requestCode(100)
-                            .callback(new PermissionListener() {
-                                @Override
-                                public void onSucceed(int requestCode, @NonNull List<String> grantPermissions) {
-                                    if (requestCode == 200) {
-                                        btnGetCode.setVisibility(View.GONE);
-                                    }
-                                }
-
-                                @Override
-                                public void onFailed(int requestCode, @NonNull List<String> deniedPermissions) {
-                                    if (requestCode == 200) {
-                                        showToast(MyApplication.geResStr(R.string.Failed_to_access_the_phone_card_serial_number));
-                                    }
-                                }
-                            })
-                            .permission(Manifest.permission.READ_PHONE_STATE)
-                            .start();
                     //手机号验证 - 是否会员
                     presenter.checkPhone(phone);
                 }
@@ -279,6 +279,11 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
         btnGetCode.setVisibility(View.VISIBLE);
         btnCheck.setVisibility(View.GONE);
         btnGetCode2.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void LoginSuccess() {
+        finish();
     }
 
 }

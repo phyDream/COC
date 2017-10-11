@@ -124,6 +124,7 @@ public class LoginPresenter extends BasePresenter<LoginView> implements LoginToD
 
     @Override
     public void deviceRegister(final String deviceId, final String uid, final String phoneNub, final String verifyCode) {
+//        showLog("当前用户数~"+userModel.getUserSize()+"~当前用户~"+userModel.getUserInfo());
         final Subscriber sb = new Subscriber<String>() {
             @Override
             public void onCompleted() {
@@ -154,6 +155,7 @@ public class LoginPresenter extends BasePresenter<LoginView> implements LoginToD
 
     @Override
     public void verify(int auth_mode, String deviceId, String userId, String password) {
+
         Subscriber<UserEntity> sb = new Subscriber<UserEntity>() {
             @Override
             public void onCompleted() {
@@ -165,7 +167,10 @@ public class LoginPresenter extends BasePresenter<LoginView> implements LoginToD
             }
             @Override
             public void onNext(UserEntity userEntity) {
-                showLog("用户账号信息~"+userEntity);
+                showLog("登录成功，用户账号信息为~"+userEntity);
+                loginView.LoginSuccess();
+                loginView.showToast(MyApplication.geResStr(R.string.Login_successful));
+                MyApplication.isUserLogin = true;
             }
         };
         if(NetWorkUtil.isNetworkAvailable()){

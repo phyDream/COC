@@ -31,4 +31,5 @@
     <string name="Please_enter_your_phone_number">请输入手机号</string>
     <string name="Please_fill_in_the_verification_code">请填写验证码</string>
     <string name="Sim_card_invalid">手机卡无效</string>
+    <string name="Login_successful">登录成功</string>
 </resources>

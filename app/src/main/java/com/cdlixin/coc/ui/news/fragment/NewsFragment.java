@@ -61,14 +61,16 @@ public class NewsFragment extends BaseFrament<NewsListView, NewsListPresenter> i
 
     @Override
     protected void initData() {
-        Bundle bundle =  getArguments();
-        int channelId = (int) bundle.get(IntentKey.ChannelId);
-        mPresenter.setNews(channelId,page);
+
     }
 
     @Override
     public void doBusiness(Context mContext) {
-
+        Bundle bundle =  getArguments();
+        String id = bundle.getString(IntentKey.ChannelId);
+        int channelId = Integer.valueOf(id);;
+        showLog("~channelId~"+channelId);
+        mPresenter.setNews(channelId,page);
     }
 
     @Override
@@ -105,7 +107,11 @@ public class NewsFragment extends BaseFrament<NewsListView, NewsListPresenter> i
 
     @Override
     public void showNews(List<NewsEntity> newsEntities) {
-        adapter.notifyDataSetChanged();
+//        showLog("~newsEntities~"+newsEntities);
+        if(newsEntities != null && newsEntities.size() > 0){
+            newsList.addAll(newsEntities);
+            adapter.notifyDataSetChanged();
+        }
     }
 
     @Override

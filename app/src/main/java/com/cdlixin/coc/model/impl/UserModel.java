@@ -2,10 +2,13 @@ package com.cdlixin.coc.model.impl;
 
 import android.text.TextUtils;
 
+import com.cdlixin.coc.entity.OrgEntity;
 import com.cdlixin.coc.entity.Result;
 import com.cdlixin.coc.entity.UserEntity;
 import com.cdlixin.coc.global.constants.SpKey;
 import com.cdlixin.coc.global.constants.Url;
+import com.cdlixin.coc.model.dao.MyOrgdao;
+import com.cdlixin.coc.model.dao.MyUserDao;
 import com.cdlixin.coc.model.network.HttpService;
 import com.cdlixin.coc.model.network.RequestManger;
 import com.cdlixin.coc.utils.GsonUtil;
@@ -16,6 +19,7 @@ import com.cdlixin.coc.utils.TimeUtil;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import rx.Observable;
@@ -35,6 +39,8 @@ public class UserModel {
     //请求生成器
     private HttpService service = new RequestManger(Url.BASE_URL).getService();
     private static UserModel userModel = null;
+    private MyUserDao dao = MyUserDao.getInstance();
+    private MyOrgdao daoOrg = MyOrgdao.getInstance();
 
     //是否处于调试模式
     public boolean DEBUG = true;
@@ -214,13 +220,18 @@ public class UserModel {
                         showLog("用户信息~"+string);
                         UserEntity user = null;
                         Result<UserEntity> userResult = GsonUtil.GsonToBean(string,new TypeToken<Result<UserEntity>>(){}.getType());
+                        showLog("userResult~"+userResult);
                         if(userResult.getResponse_code() == 0){
                              user =  userResult.getResponse_data();
+                            showLog("user~"+user);
+                            //存入本地
+                            if(user != null){
+                                saveUserInfo(user);
+                            }
                         }
-                        return user;
+                        return getUserInfo();
                     }
                 })
-
                 .subscribe(subscriber);
     }
 
@@ -229,15 +240,51 @@ public class UserModel {
      * @param userEntity
      */
     public void saveUserInfo(UserEntity userEntity){
+        SharedPreferencesHelper helper = SharedPreferencesHelper.getInstance();
+        if(userEntity != null){
+            //记录当前用户id
+            helper.saveData(SpKey.currUserId,userEntity.getU_id());
+            UserEntity newItem = userEntity;
+            UserEntity oldItem = dao.selectById(newItem.getU_id() );
+            //没有该用户，就存入
+            if (oldItem == null) {//当前数据库中没有就插入
+                dao.insert(newItem);
+            }
+        }
 
     }
 
     /**
-     * 得到信息
+     * 得到用户信息
      * @return
      */
     public UserEntity getUserInfo(){
-        return null;
+        SharedPreferencesHelper helper = SharedPreferencesHelper.getInstance();
+        String userId = (String) helper.getData(SpKey.currUserId,"");
+        showLog("userId~"+userId);
+        UserEntity userEntity = null;
+        if(userId != null){
+            userEntity = dao.selectById(userId);
+            showLog("来自数据库userEntity~"+userEntity);
+        }
+        return userEntity;
+    }
+
+    /**
+     * 得到用户token
+     * @return
+     */
+    public String getToken(){
+        SharedPreferencesHelper helper = SharedPreferencesHelper.getInstance();
+        String userId = (String) helper.getData(SpKey.currUserId,"");
+        String token = null;
+        if(userId != null && !TextUtils.isEmpty(userId)){
+            showLog("userId~"+userId);
+            UserEntity userEntity = dao.selectById(userId);
+            token = userEntity.getS_token();
+            showLog("来自数据库token为~"+token);
+        }
+        return token;
     }
 
     //展示log
@@ -246,5 +293,10 @@ public class UserModel {
             LogUtil.i(string);
         }
     };
+
+    //得到用户数
+    public long getUserSize() {
+        return dao.getSize();
+    }
 
 }

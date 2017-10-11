@@ -12,7 +12,7 @@ public class GsonEntity {
      */
     private List<ChannelItem> channels;
 
-    private List<NewsEntity> news;
+    private List<NewsEntity> infos;
 
     public List<ChannelItem> getChannels() {
         return channels;
@@ -23,10 +23,18 @@ public class GsonEntity {
     }
 
     public List<NewsEntity> getNews() {
-        return news;
+        return infos;
     }
 
-    public void setNews(List<NewsEntity> news) {
-        this.news = news;
+    public void setNews(List<NewsEntity> infos) {
+        this.infos = infos;
+    }
+
+    @Override
+    public String toString() {
+        return "GsonEntity{" +
+                "channels=" + channels +
+                ", infos=" + infos +
+                '}';
     }
 }

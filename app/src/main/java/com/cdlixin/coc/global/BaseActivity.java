@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.cdlixin.coc.R;
 import com.cdlixin.coc.utils.LogUtil;
 import com.cdlixin.coc.utils.ToastUtils;
+import com.jaeger.library.StatusBarUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,7 @@ public abstract class BaseActivity <V, T extends BasePresenter<V>> extends Fragm
         super.onCreate(savedInstanceState);
         MyApplication.mActivities.add(this);//存放所有activity的引用
         setContentView(getLayoutId());//设置布局id
+        StatusBarUtil.setColor(this, getResources().getColor(R.color.colorAccent), 0);
         ButterKnife.bind(this);//控件绑定
         presenter = getPresenter();
         initView();//初始化界面

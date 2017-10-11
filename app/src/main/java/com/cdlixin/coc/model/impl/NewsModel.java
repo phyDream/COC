@@ -82,12 +82,12 @@ public class NewsModel {
                 .map(new Func1<String, List<NewsEntity>>() {
                     @Override
                     public List<NewsEntity> call(String s) {
+                        showLog("~资讯string~"+s);
                         List<NewsEntity> news = null;
                         Result<GsonEntity> result = GsonUtil.GsonToBean(s,new TypeToken<Result<GsonEntity>>(){}.getType());
                         if(result.getResponse_code() == 0){
-                            if(news != null && news.size() > 0 ){
-
-                            }
+                            news =  result.getResponse_data().getNews();
+                            showLog("~资讯~"+news);
                         }
                         return news;
                     }

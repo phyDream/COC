@@ -2,13 +2,16 @@ package com.cdlixin.coc.presenter.news.impl;
 
 import android.content.Context;
 
+import com.cdlixin.coc.R;
 import com.cdlixin.coc.entity.NewsEntity;
 import com.cdlixin.coc.global.BaseActivity;
 import com.cdlixin.coc.global.BaseFrament;
 import com.cdlixin.coc.global.BasePresenter;
 import com.cdlixin.coc.global.MyApplication;
 import com.cdlixin.coc.model.impl.NewsModel;
+import com.cdlixin.coc.model.impl.UserModel;
 import com.cdlixin.coc.ui.news.view.NewsListView;
+import com.cdlixin.coc.utils.NetWorkUtil;
 
 import java.util.List;
 
@@ -23,6 +26,7 @@ public class NewsListPresenter extends BasePresenter<NewsListView>{
     private Context context;
     private NewsListView view ;
     private NewsModel model;
+    private UserModel userModel;
     private String s_token;
 
     public NewsListPresenter(BaseActivity context) {
@@ -34,6 +38,7 @@ public class NewsListPresenter extends BasePresenter<NewsListView>{
         this.context = context;
         view = (NewsListView) frament;
         model = NewsModel.getInstance();
+        userModel = UserModel.getInstance();
         DEBUG = true;
     }
 
@@ -41,6 +46,7 @@ public class NewsListPresenter extends BasePresenter<NewsListView>{
      * 获取新闻列表并设置
      */
     public void setNews(int channel_id,int page){
+        s_token = userModel.getToken();
         //本地获取可展示的频道列表
         Subscriber<List<NewsEntity>> subscriber = new Subscriber<List<NewsEntity>>() {
             @Override
@@ -63,8 +69,13 @@ public class NewsListPresenter extends BasePresenter<NewsListView>{
                 }
             }
         };
+        if(NetWorkUtil.isNetworkConnected()){
+            showLog("~发起资讯请求~"+s_token);
+            model.getNews(0,Integer.MAX_VALUE,s_token,channel_id,page, MyApplication.NEWS_COUNT,subscriber);
+        }else {
+            view.showToast(MyApplication.geResStr(R.string.Network_connection_failed));
+        }
 
-        model.getNews(0,Integer.MAX_VALUE,s_token,channel_id,page, MyApplication.NEWS_COUNT,subscriber);
     }
 
 

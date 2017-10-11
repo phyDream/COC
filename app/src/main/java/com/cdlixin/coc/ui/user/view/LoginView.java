@@ -9,4 +9,5 @@ public interface LoginView {
     void countDown();
     void checkPhoneNumIng();
     void checkPhoneFaile();
+    void LoginSuccess();
 }

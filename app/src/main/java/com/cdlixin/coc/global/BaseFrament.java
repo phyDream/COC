@@ -59,7 +59,7 @@ public abstract class BaseFrament <V, T extends BasePresenter<V>> extends Fragme
         //第一次初始化&&由隐藏变为显示
         if(isFristInit && !hidden){
             isFristInit = false;
-//            LogUtil.i("~fragment第一次由隐藏变为显示时初始化数据");
+            showLog("~fragment第一次由隐藏变为显示时初始化数据");
             initData();
         }
     }
