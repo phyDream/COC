@@ -2,6 +2,7 @@ package com.cdlixin.coc.ui.main.fragment;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -13,6 +14,8 @@ import com.cdlixin.coc.global.BaseFrament;
 import com.cdlixin.coc.presenter.main.impl.NewsPresenter;
 import com.cdlixin.coc.ui.main.adapter.NewsPageAdapter;
 import com.cdlixin.coc.ui.main.view.NewsPageView;
+import com.cdlixin.coc.ui.main.widget.TopBar;
+import com.cdlixin.coc.ui.news.activity.ChannelManagerActivity;
 import com.cdlixin.coc.utils.ToastUtils;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +77,13 @@ public class OneFragment extends BaseFrament<NewsPageView,NewsPresenter> impleme
             @Override
             public void onPageScrollStateChanged(int state) {
 
+            }
+        });
+
+        TopBar.setOnClickAddBtnListener(new TopBar.OnClickAddBtnListener() {
+            @Override
+            public void clickAddBtn() {
+                startActivity(new Intent(getActivity(), ChannelManagerActivity.class));
             }
         });
     }

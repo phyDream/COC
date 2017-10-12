@@ -2,6 +2,7 @@ package com.cdlixin.coc.presenter.main.impl;
 
 import android.content.Context;
 
+import com.cdlixin.coc.R;
 import com.cdlixin.coc.entity.ChannelItem;
 import com.cdlixin.coc.entity.GsonEntity;
 import com.cdlixin.coc.entity.Result;
@@ -42,12 +43,12 @@ public class NewsPresenter extends BasePresenter<NewsPageView> implements INewsP
     Subscriber<List<ChannelItem>> subscriber = new Subscriber<List<ChannelItem>>() {
         @Override
         public void onCompleted() {
-            showLog("频道列表本地获取完成");
+            showLog("频道列表本地获取完成~");
         }
 
         @Override
         public void onError(Throwable e) {
-            showLog("频道列表本地获取失败"+e.getMessage());
+            showLog("频道列表本地获取失败~"+e.getMessage());
         }
 
         @Override
@@ -67,12 +68,15 @@ public class NewsPresenter extends BasePresenter<NewsPageView> implements INewsP
         channelModel.saveChannels(new Subscriber<List<ChannelItem>>() {
             @Override
             public void onCompleted() {
-                showLog("频道列表下载完成");
+                showLog("频道列表下载完成~");
             }
 
             @Override
             public void onError(Throwable e) {
-                showLog("频道列表下载失败" + e.getMessage());
+                showLog("频道列表下载失败~" + e.getMessage());
+                view.showToast(MyApplication.geResStr(R.string.Network_connection_failed));
+                //直接本地获取
+                channelModel.getChannels(subscriber);
             }
 
             @Override

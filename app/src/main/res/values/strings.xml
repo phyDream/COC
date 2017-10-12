@@ -27,9 +27,15 @@
     <string name="verificationCode">短信验证码</string>
     <string name="Failed_to_access_the_phone_card_serial_number">获取SIM序列号失败，请开启相应权限</string>
     <string name="The_time_is_too_short">离上次发出验证码时间小于60秒,还剩%s秒</string>
-    <string name="Network_connection_failed">网络连接失败</string>
+    <string name="Network_connection_failed">网络连接失败,请检查你的网络</string>
     <string name="Please_enter_your_phone_number">请输入手机号</string>
     <string name="Please_fill_in_the_verification_code">请填写验证码</string>
     <string name="Sim_card_invalid">手机卡无效</string>
     <string name="Login_successful">登录成功</string>
+    <string name="loading">正在加载</string>
+
+    <string name="MyChannel">我的频道</string>
+    <string name="Click_channel_change">点击频道修改</string>
+    <string name="The_recommended_channel">推荐频道</string>
+    <string name="Click_on_the_add_and_delete_channel_and_the_long_drag_and_drop_sort">点击增删频道, 长按拖拽排序</string>
 </resources>

@@ -62,7 +62,7 @@ public class NewsModel {
      * @param subscriber
      */
     public void getNews(int from_date,int to_date,String s_token, int channel_id, int page, int size,Subscriber<List<NewsEntity>> subscriber){
-//发起请求时的Unix时间戳，使用格林威治标准时间
+        //发起请求时的Unix时间戳，使用格林威治标准时间
         int time = (int) TimeUtil.getGMTUnixTimeByCalendar();
         //参数键值对
         Map<String,String> map = new LinkedHashMap<>();

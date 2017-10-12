@@ -67,6 +67,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHoudler> {
         return newsList.size();
     }
 
+
     class ViewHoudler extends RecyclerView.ViewHolder {
         private ImageView imgNews;
         private TextView tvTitle;

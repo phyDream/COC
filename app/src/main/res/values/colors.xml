@@ -16,4 +16,6 @@
     <color name="colorLineBetween">#bababa</color>
     <color name="Hint">#dadada</color>
     <color name="backGround">#ebebeb</color>
+    <color name="back">#F4F4F4</color>
+    <color name="red">#FF0000</color>
 </resources>

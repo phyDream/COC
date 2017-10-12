@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.cdlixin.coc.R;
 import com.cdlixin.coc.entity.NewsEntity;
@@ -38,11 +41,14 @@ public class NewsFragment extends BaseFrament<NewsListView, NewsListPresenter> i
     SmartRefreshLayout refreshLayout;
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
+    @Bind(R.id.Frame_blank)
+    LinearLayout FrameBlank;
 
     private int page = 1;
 
     private List<NewsEntity> newsList = new ArrayList<>();
     private NewsAdapter adapter = null;
+    private int channelId;
 
     @Override
     public int bindLayout() {
@@ -52,7 +58,7 @@ public class NewsFragment extends BaseFrament<NewsListView, NewsListPresenter> i
     @Override
     public void initView(View view) {
         DEBUG = true;
-        adapter = new NewsAdapter(newsList,getActivity());
+        adapter = new NewsAdapter(newsList, getActivity());
         //设置item放置模式
         LinearLayoutManager manager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
@@ -66,11 +72,11 @@ public class NewsFragment extends BaseFrament<NewsListView, NewsListPresenter> i
 
     @Override
     public void doBusiness(Context mContext) {
-        Bundle bundle =  getArguments();
+        Bundle bundle = getArguments();
         String id = bundle.getString(IntentKey.ChannelId);
-        int channelId = Integer.valueOf(id);;
-        showLog("~channelId~"+channelId);
-        mPresenter.setNews(channelId,page);
+        channelId = Integer.valueOf(id);
+        showLog("~channelId~" + channelId);
+        mPresenter.getNews(channelId, page++);
     }
 
     @Override
@@ -78,20 +84,22 @@ public class NewsFragment extends BaseFrament<NewsListView, NewsListPresenter> i
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                refreshlayout.finishRefresh(1000);
+                refreshlayout.finishRefresh();
             }
         });
         refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
-                refreshlayout.finishLoadmore(1000);
+                mPresenter.getNews(channelId, page++);
+                refreshlayout.finishLoadmore();
             }
         });
+
     }
 
     @Override
     protected NewsListPresenter getPresenter() {
-        return new NewsListPresenter((BaseActivity) getContext(),this);
+        return new NewsListPresenter((BaseActivity) getContext(), this);
     }
 
     @Override
@@ -108,14 +116,25 @@ public class NewsFragment extends BaseFrament<NewsListView, NewsListPresenter> i
     @Override
     public void showNews(List<NewsEntity> newsEntities) {
 //        showLog("~newsEntities~"+newsEntities);
-        if(newsEntities != null && newsEntities.size() > 0){
+        if (newsEntities != null && newsEntities.size() > 0) {
             newsList.addAll(newsEntities);
-            adapter.notifyDataSetChanged();
         }
+        updateUI();
     }
 
     @Override
     public void showToast(String string) {
-        ToastUtils.showToast(getContext(),string);
+        ToastUtils.showToast(getContext(), string);
+    }
+
+    private void updateUI(){
+        if(newsList != null && newsList.size() > 0){
+            adapter.notifyDataSetChanged();
+            refreshLayout.setVisibility(View.VISIBLE);
+            FrameBlank.setVisibility(View.GONE);
+        }else {
+            refreshLayout.setVisibility(View.GONE);
+            FrameBlank.setVisibility(View.VISIBLE);
+        }
     }
 }

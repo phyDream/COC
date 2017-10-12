@@ -45,18 +45,19 @@ public class NewsListPresenter extends BasePresenter<NewsListView>{
     /**
      * 获取新闻列表并设置
      */
-    public void setNews(int channel_id,int page){
+    public void getNews(int channel_id,int page){
         s_token = userModel.getToken();
         //本地获取可展示的频道列表
         Subscriber<List<NewsEntity>> subscriber = new Subscriber<List<NewsEntity>>() {
             @Override
             public void onCompleted() {
-                showLog("资讯列表本地获取完成");
+                showLog("资讯列表本地获取完成~");
             }
 
             @Override
             public void onError(Throwable e) {
-                showLog("资讯列表本地获取失败"+e.getMessage());
+                showLog("资讯列表本地获取失败~"+e.getMessage());
+                view.showNews(null);
             }
 
             @Override
@@ -69,10 +70,9 @@ public class NewsListPresenter extends BasePresenter<NewsListView>{
                 }
             }
         };
-        if(NetWorkUtil.isNetworkConnected()){
-            showLog("~发起资讯请求~"+s_token);
-            model.getNews(0,Integer.MAX_VALUE,s_token,channel_id,page, MyApplication.NEWS_COUNT,subscriber);
-        }else {
+        showLog("~发起资讯请求~"+s_token);
+        model.getNews(0,Integer.MAX_VALUE,s_token,channel_id,page, MyApplication.NEWS_COUNT,subscriber);
+        if(!NetWorkUtil.isNetworkConnected()){
             view.showToast(MyApplication.geResStr(R.string.Network_connection_failed));
         }
 

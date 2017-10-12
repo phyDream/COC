@@ -60,6 +60,28 @@ public class ChannelModel {
         Observable<List<ChannelItem>> observable = Observable.create(new Observable.OnSubscribe<List<ChannelItem>>() {
             @Override
             public void call(Subscriber<? super List<ChannelItem>> subscriber) {
+                List<ChannelItem> channels = dao.getOtherChannel();
+                if(channels != null && channels.size() > 0){
+                    subscriber.onNext(channels);
+                }
+            }
+
+        });
+        Subscription subscription = observable //note2
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+
+    }
+
+    /**
+     * 本地获取不展示的频道列表
+     */
+    public void getOtherChannels (Subscriber<List<ChannelItem>> subscriber) {
+
+        Observable<List<ChannelItem>> observable = Observable.create(new Observable.OnSubscribe<List<ChannelItem>>() {
+            @Override
+            public void call(Subscriber<? super List<ChannelItem>> subscriber) {
                 List<ChannelItem> channels = dao.getUserChannel();
                 if(channels != null && channels.size() > 0){
                     subscriber.onNext(channels);
@@ -103,19 +125,6 @@ public class ChannelModel {
                         return channelItems;
                     }
                 })
-                .map(new Func1<List<ChannelItem>, List<ChannelItem>>() {//设置是否展示标记
-                    @Override
-                    public List<ChannelItem> call(List<ChannelItem> channelItems) {
-                        for (int i = 0; i < channelItems.size(); i++) {
-                            if(i < 7){
-                                channelItems.get(i).setChose(true);
-                            }else {
-                                channelItems.get(i).setChose(false);
-                            }
-                        }
-                        return channelItems;
-                    }
-                })
                 .map(new Func1<List<ChannelItem>, List<ChannelItem>>() {//存入本地数据库
                     @Override
                     public List<ChannelItem> call(List<ChannelItem> channelItems) {
@@ -124,6 +133,7 @@ public class ChannelModel {
                                 ChannelItem newItem = channelItems.get(i);
                                 ChannelItem oldItem = dao.selectById(newItem.getId());
                                 if (oldItem == null) {//当前数据库中没有就插入
+                                    newItem.setChose(true);
                                     dao.insert(newItem);
                                 }
                             }
