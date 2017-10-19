@@ -43,6 +43,8 @@
         </activity>
         <activity android:name=".ui.news.activity.ChannelManagerActivity">
         </activity>
+        <activity android:name=".ui.sd.activity.TestActivity">
+        </activity>
     </application>
 
 </manifest>
